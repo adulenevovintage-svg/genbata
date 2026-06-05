@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --animate-infinite-scroll: infinite-scroll 45s linear infinite;
+  --animate-infinite-scroll-reverse: infinite-scroll-reverse 40s linear infinite;
+
+  @keyframes infinite-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+  }
+  @keyframes infinite-scroll-reverse {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-brand: #fbbf24; /* amber-400 */
+  
+  --perspective-none: none;
+  --perspective-1000: 1000px;
+  --perspective-2000: 2000px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-slate-50 text-slate-900;
+  }
+}
+
+::selection {
+  background-color: #fbbf24;
+  color: #0f172a;
+}
