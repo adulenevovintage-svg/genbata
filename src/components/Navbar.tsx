@@ -6,11 +6,18 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: 'Products', href: '#products' },
+    { name: 'Products', href: '#catalog' },
     { name: 'Services', href: '#services' },
     { name: 'Portfolio', href: '#portfolio' },
-    { name: 'About', href: '#about' },
+    { name: 'Location', href: '#location' },
   ];
+
+  const handleScrollToCatalog = () => {
+    const catalogElement = document.getElementById('catalog');
+    if (catalogElement) {
+      catalogElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-50/80 backdrop-blur-md border-b border-slate-200">
@@ -34,7 +41,10 @@ export default function Navbar() {
                 {link.name}
               </a>
             ))}
-            <button className="bg-slate-900 text-white px-8 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-amber-400 hover:text-slate-900 transition-all">
+            <button 
+              onClick={handleScrollToCatalog}
+              className="bg-slate-900 text-white px-8 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-amber-400 hover:text-slate-900 transition-all cursor-pointer"
+            >
               Get Quote
             </button>
           </div>
@@ -65,7 +75,13 @@ export default function Navbar() {
               {link.name}
             </a>
           ))}
-          <button className="w-full bg-amber-500 text-white py-4 rounded-xl text-lg font-bold mt-2">
+          <button 
+            onClick={() => {
+              setIsOpen(false);
+              handleScrollToCatalog();
+            }}
+            className="w-full bg-amber-500 text-white py-4 rounded-xl text-lg font-bold mt-2 cursor-pointer"
+          >
             Get Started
           </button>
         </motion.div>

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -14,6 +14,7 @@ import FAQ from './components/FAQ';
 import Portfolio from './components/Portfolio';
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
+import MapSection from './components/MapSection';
 import Footer from './components/Footer';
 
 import Marquee from './components/Marquee';
@@ -65,6 +66,7 @@ export default function App() {
         <SectionWrapper><FAQ /></SectionWrapper>
         <SectionWrapper><Portfolio /></SectionWrapper>
         <SectionWrapper><Testimonials /></SectionWrapper>
+        <SectionWrapper><MapSection /></SectionWrapper>
         <SectionWrapper showMarquee={false}><Contact /></SectionWrapper>
       </main>
       <Footer />
