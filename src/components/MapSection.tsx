@@ -15,8 +15,9 @@ export default function MapSection() {
   const [open, setOpen] = useState(true);
   const [markerRef, marker] = useAdvancedMarkerRef();
 
-  // Primary office location in Addis Ababa (Bole Road Area)
-  const HQ_POSITION = { lat: 8.9954, lng: 38.7844 };
+  // Primary office location in Addis Ababa (Bole Bulbula Area)
+  // Plus Code: XQ6M+3P Addis Ababa
+  const HQ_POSITION = { lat: 8.9601875, lng: 38.7843125 };
 
   return (
     <section id="location" className="py-32 bg-slate-900 border-t-4 border-slate-950 text-white relative overflow-hidden">
@@ -60,7 +61,7 @@ export default function MapSection() {
                 <div>
                   <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">HQ Address</div>
                   <div className="text-lg font-black tracking-tight text-white uppercase italic">
-                    Bole Road, Block 4B,<br />Addis Ababa, Ethiopia
+                    XQ6M+3P, Bole Bulbula,<br />Addis Ababa, Ethiopia
                   </div>
                 </div>
               </div>
@@ -72,7 +73,7 @@ export default function MapSection() {
                 <div>
                   <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Quick Navigation</div>
                   <div className="text-sm text-slate-400 font-medium">
-                    Opposite Millennium Hall, adjacent to the Renewable District Tower. Space available for heavy vehicles.
+                    Near Bole Bulbula Ring Road intersection, adjacent to the Renewable District Substation. Space available for heavy vehicles.
                   </div>
                 </div>
               </div>
@@ -180,7 +181,7 @@ export default function MapSection() {
                         >
                           <div className="p-3 text-slate-900 font-sans max-w-[200px]">
                             <h4 className="text-sm font-black uppercase tracking-tight italic mb-1">GENBATA HQ</h4>
-                            <p className="text-xs text-slate-500 font-medium">Bole Road, Block 4B, Addis Ababa. Always-On Energetic Base.</p>
+                            <p className="text-xs text-slate-500 font-medium">Bole Bulbula (XQ6M+3P), Addis Ababa. Always-On Energetic Base.</p>
                           </div>
                         </InfoWindow>
                       )}

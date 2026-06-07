@@ -1,4 +1,4 @@
-import { Sun } from 'lucide-react';
+import Logo from './Logo';
 
 export default function Footer() {
   return (
@@ -6,11 +6,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid md:grid-cols-12 gap-16 mb-24">
           <div className="md:col-span-5">
-            <div className="flex items-center gap-2 mb-12">
-              <div className="w-10 h-10 bg-amber-400 rounded-full flex items-center justify-center text-slate-900">
-                <Sun size={24} strokeWidth={3} />
-              </div>
-              <span className="text-4xl font-black tracking-tighter uppercase italic">GENBATA</span>
+            <div className="flex items-center gap-4 mb-12 group">
+              <Logo size={48} className="text-white" />
+              <span className="text-4xl font-black tracking-tighter uppercase italic group-hover:text-amber-400 transition-colors">GENBATA</span>
             </div>
             <p className="text-slate-400 text-xl max-w-sm font-medium leading-relaxed italic opacity-80">
               Transforming solar potential into industrial reality. Always-on energy ecosystems designed, installed, and maintained by elite engineers.

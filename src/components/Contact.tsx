@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Mail, Phone, Send, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Mail, Phone, Send, CheckCircle2 } from 'lucide-react';
+import { useApp } from '../context/AppContext';
 
 export default function Contact() {
+  const { t } = useApp();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [solution, setSolution] = useState('Sales');
@@ -40,25 +42,26 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-32 bg-slate-50">
+    <section id="contact" className="py-32 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-12 gap-0 border-4 border-slate-900 rounded-[3rem] overflow-hidden bg-white shadow-[20px_20px_0px_#cbc5e1]">
+        <div className="grid lg:grid-cols-12 gap-0 border-4 border-slate-900 dark:border-slate-800 rounded-[3rem] overflow-hidden bg-white dark:bg-slate-900 shadow-[20px_20px_0px_#cbc5e1] dark:shadow-[20px_20px_0px_#1e293b]">
           
-          {/* Left panel */}
-          <div className="lg:col-span-5 bg-slate-900 p-16 text-white flex flex-col justify-between">
+          {/* Left panel (Always styled as elegant black industrial look) */}
+          <div className="lg:col-span-5 bg-slate-950 p-16 text-white flex flex-col justify-between border-b lg:border-b-0 lg:border-r-4 border-slate-900">
             <div>
               <h3 className="text-5xl lg:text-7xl font-black tracking-tighter uppercase leading-[0.85] mb-12">
-                Ready For<br /><span className="text-amber-400">Autonomy?</span>
+                {t('ready_question')}<br />
+                <span className="text-amber-400">{t('ready_sub')}</span>
               </h3>
               
-              <div className="space-y-12">
+              <div className="space-y-12 animate-fade-in">
                 <div className="flex items-start gap-6 group cursor-pointer">
                   <div className="w-12 h-12 rounded-full border-2 border-amber-400 flex items-center justify-center text-amber-400 group-hover:bg-amber-400 group-hover:text-slate-900 transition-all">
                     <Mail size={20} />
                   </div>
                   <div>
                     <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1 italic">Electronic Mail</div>
-                    <div className="text-xl font-black uppercase tracking-tighter italic">hello@genbata.solar</div>
+                    <div className="text-xl font-black uppercase tracking-tighter italic text-white group-hover:text-amber-400 transition-colors">hello@genbata.solar</div>
                   </div>
                 </div>
 
@@ -68,40 +71,40 @@ export default function Contact() {
                   </div>
                   <div>
                     <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1 italic">Voice Line</div>
-                    <div className="text-xl font-black uppercase tracking-tighter italic">1-800-SUN-GEN</div>
+                    <div className="text-xl font-black uppercase tracking-tighter italic text-white group-hover:text-amber-400 transition-colors">1-800-SUN-GEN</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="mt-20 pt-12 border-t border-slate-800 flex gap-8">
+            <div className="mt-20 pt-12 border-t border-slate-900 flex gap-8">
               {['LN', 'TW', 'IG'].map(s => (
-                <span key={s} className="text-sm font-black text-slate-500 hover:text-amber-400 transition-colors cursor-pointer italic">/{s}</span>
+                <span key={s} className="text-sm font-black text-slate-600 hover:text-amber-400 transition-colors cursor-pointer italic">/{s}</span>
               ))}
             </div>
           </div>
 
           {/* Form panel */}
-          <div className="lg:col-span-7 p-16 lg:p-24 relative">
+          <div className="lg:col-span-7 p-16 lg:p-24 relative bg-white dark:bg-slate-900">
             {isSubmitted ? (
               // Success feedback frame
-              <div className="absolute inset-0 bg-white p-16 lg:p-24 flex flex-col justify-center items-center text-center z-10 animate-fade-in">
-                <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center text-green-500 mb-8 border-2 border-green-500">
+              <div className="absolute inset-0 bg-white dark:bg-slate-900 p-16 lg:p-24 flex flex-col justify-center items-center text-center z-10 animate-fade-in">
+                <div className="w-20 h-20 rounded-full bg-green-100 dark:bg-green-950/30 flex items-center justify-center text-green-500 mb-8 border-2 border-green-500">
                   <CheckCircle2 size={40} />
                 </div>
-                <h4 className="text-3xl font-black uppercase tracking-tighter text-slate-900 mb-4 italic">
-                  Mission Transmitted
+                <h4 className="text-3xl font-black uppercase tracking-tighter text-slate-900 dark:text-white mb-4 italic">
+                  {t('contact_success_title')}
                 </h4>
-                <p className="text-slate-600 text-lg max-w-md font-bold leading-snug mb-2">
-                  Coordinates sent directly to <span className="text-amber-500">lenevovintage@gmail.com</span>.
+                <p className="text-slate-600 dark:text-slate-300 text-lg max-w-md font-bold leading-snug mb-2">
+                  {t('contact_success_text')} <span className="text-amber-500">lenevovintage@gmail.com</span>.
                 </p>
-                <p className="text-slate-400 text-sm max-w-sm leading-relaxed">
-                  Your mail client has been opened to finalize delivery. Our engineering core will monitor transmission and draft response parameters shortly.
+                <p className="text-slate-400 dark:text-slate-400 text-sm max-w-sm leading-relaxed">
+                  {t('contact_success_subtext')}
                 </p>
                 <button
                   type="button"
                   onClick={() => setIsSubmitted(false)}
-                  className="mt-8 px-8 py-3 bg-slate-900 text-white rounded-full text-xs font-black uppercase tracking-widest hover:bg-amber-400 hover:text-slate-900 transition-colors cursor-pointer"
+                  className="mt-8 px-8 py-3 bg-slate-900 dark:bg-amber-400 text-white dark:text-slate-950 rounded-full text-xs font-black uppercase tracking-widest hover:bg-amber-400 dark:hover:bg-white hover:text-slate-900 transition-colors cursor-pointer"
                 >
                   Submit Another Report
                 </button>
@@ -111,32 +114,38 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="space-y-12">
               <div className="grid md:grid-cols-2 gap-12">
                 <div className="space-y-3">
-                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 italic">Identity</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 italic">
+                    {t('contact_identity')}
+                  </label>
                   <input
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="YOUR NAME"
-                    className="w-full bg-transparent border-b-2 border-slate-200 px-0 py-4 outline-none focus:border-slate-900 transition-all font-black uppercase tracking-tighter text-xl placeholder:text-slate-300 text-slate-900"
+                    className="w-full bg-transparent border-b-2 border-slate-200 dark:border-slate-800 px-0 py-4 outline-none focus:border-slate-900 dark:focus:border-amber-400 transition-all font-black uppercase tracking-tighter text-xl placeholder:text-slate-300 dark:placeholder:text-slate-700 text-slate-900 dark:text-white"
                   />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 italic">Communication</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 italic">
+                    {t('contact_communication')}
+                  </label>
                   <input
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="EMAIL ADDRESS"
-                    className="w-full bg-transparent border-b-2 border-slate-200 px-0 py-4 outline-none focus:border-slate-900 transition-all font-black uppercase tracking-tighter text-xl placeholder:text-slate-300 text-slate-900"
+                    className="w-full bg-transparent border-b-2 border-slate-200 dark:border-slate-800 px-0 py-4 outline-none focus:border-slate-900 dark:focus:border-amber-400 transition-all font-black uppercase tracking-tighter text-xl placeholder:text-slate-300 dark:placeholder:text-slate-700 text-slate-900 dark:text-white"
                   />
                 </div>
               </div>
 
               {/* Dynamic Solution Selector */}
               <div className="space-y-4">
-                <label className="text-xs font-black uppercase tracking-widest text-slate-400 italic">Solution Required</label>
+                <label className="text-xs font-black uppercase tracking-widest text-slate-400 italic">
+                  {t('contact_solution')}
+                </label>
                 <div className="flex flex-wrap gap-3">
                   {['Sales', 'Install', 'Maintain', 'Upgrade'].map(type => {
                     const isActive = solution === type;
@@ -147,8 +156,8 @@ export default function Contact() {
                         onClick={() => setSolution(type)}
                         className={`px-8 py-3 rounded-full border-2 text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
                           isActive 
-                            ? 'bg-amber-405 bg-amber-400 border-slate-900 text-slate-900 shadow-[4px_4px_0px_#000]' 
-                            : 'border-slate-200 text-slate-600 hover:border-slate-900 hover:text-slate-900'
+                            ? 'bg-amber-400 border-slate-900 dark:border-amber-400 text-slate-900 shadow-[4px_4px_0px_#000]' 
+                            : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-900 dark:hover:border-slate-300 hover:text-slate-900 dark:hover:text-white'
                         }`}
                       >
                         {type}
@@ -159,21 +168,23 @@ export default function Contact() {
               </div>
 
               <div className="space-y-3 pt-6">
-                <label className="text-xs font-black uppercase tracking-widest text-slate-400 italic">Mission Details</label>
+                <label className="text-xs font-black uppercase tracking-widest text-slate-400 italic">
+                  {t('contact_mission')}
+                </label>
                 <textarea
                   rows={4}
                   value={powerNeeds}
                   onChange={(e) => setPowerNeeds(e.target.value)}
                   placeholder="OUTLINE YOUR DETAILED POWER CAPACITY REQUIREMENTS OR LOAD PROFILE"
-                  className="w-full bg-slate-50 border-2 border-slate-900 rounded-2xl p-6 outline-none focus:ring-4 focus:ring-amber-400/20 transition-all font-black uppercase tracking-tighter text-lg placeholder:text-slate-300 text-slate-900 resize-none"
+                  className="w-full bg-slate-50 dark:bg-slate-950 border-2 border-slate-900 dark:border-slate-800 rounded-2xl p-6 outline-none focus:ring-4 focus:ring-amber-400/20 transition-all font-black uppercase tracking-tighter text-lg placeholder:text-slate-300 dark:placeholder:text-slate-800 text-slate-900 dark:text-white resize-none"
                 />
               </div>
 
               <button 
                 type="submit"
-                className="w-full bg-slate-900 text-white py-8 rounded-full text-2xl font-black uppercase tracking-tighter italic group flex items-center justify-center gap-4 hover:bg-amber-400 hover:text-slate-900 transition-all cursor-pointer shadow-[8px_8px_0px_rgba(0,0,0,0.15)]"
+                className="w-full bg-slate-900 dark:bg-amber-400 text-white dark:text-slate-950 py-8 rounded-full text-2xl font-black uppercase tracking-tighter italic group flex items-center justify-center gap-4 hover:bg-amber-400 dark:hover:bg-white hover:text-slate-900 dark:hover:text-slate-950 transition-all cursor-pointer shadow-[8px_8px_0px_rgba(0,0,0,0.15)]"
               >
-                Submit Mission <Send size={28} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                {t('contact_submit')} <Send size={28} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </button>
             </form>
           </div>

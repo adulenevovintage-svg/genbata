@@ -1,8 +1,10 @@
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { ShoppingBag, Battery, Zap, CheckCircle, ArrowRight } from 'lucide-react';
-import { useState } from 'react';
+import { Battery, Zap, CheckCircle, ArrowRight } from 'lucide-react';
+import { useApp } from '../context/AppContext';
 
 export default function ProductCatalog() {
+  const { t } = useApp();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const products = [
@@ -50,27 +52,39 @@ export default function ProductCatalog() {
     );
   };
 
+  const handleProceedQuote = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section id="catalog" className="py-32 bg-white">
+    <section id="catalog" className="py-32 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-20 flex flex-col md:flex-row items-end justify-between gap-8">
+        <div className="mb-20 flex flex-col md:flex-row items-end justify-between gap-8 animate-fade-in">
           <div>
-            <h2 className="text-xs font-black text-amber-500 uppercase tracking-[0.4em] mb-4">Inventory & Services</h2>
-            <h3 className="text-6xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.85]">
-              Select Your <br /><span className="text-slate-300">Power.</span>
+            <h2 className="text-xs font-black text-amber-500 uppercase tracking-[0.4em] mb-4">
+              {t('catalog_sub')}
+            </h2>
+            <h3 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.85] text-slate-900 dark:text-white">
+              Select Your <br /><span className="text-slate-300 dark:text-slate-700">Power.</span>
             </h3>
           </div>
           {selectedIds.length > 0 && (
             <motion.div 
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="bg-amber-400 p-6 border-4 border-slate-900 rounded-3xl flex items-center gap-6 shadow-[10px_10px_0px_#0f172a]"
+              className="bg-amber-400 p-6 border-4 border-slate-900 dark:border-white rounded-3xl flex items-center gap-6 shadow-[10px_10px_0px_#0f172a] dark:shadow-[10px_10px_0px_#fbbf24]"
             >
               <div className="text-slate-900 font-black uppercase tracking-tighter">
                 <div className="text-2xl leading-none">{selectedIds.length} ITEMS</div>
                 <div className="text-xs">READY FOR DEPLOYMENT</div>
               </div>
-              <button className="bg-slate-900 text-white px-8 py-4 rounded-xl text-sm font-black uppercase tracking-widest flex items-center gap-2 hover:bg-white hover:text-slate-900 transition-all">
+              <button 
+                onClick={handleProceedQuote}
+                className="bg-slate-900 text-white px-8 py-4 rounded-xl text-sm font-black uppercase tracking-widest flex items-center gap-2 hover:bg-white hover:text-slate-900 transition-all cursor-pointer"
+              >
                 Proceed <ArrowRight size={16} />
               </button>
             </motion.div>
@@ -85,24 +99,28 @@ export default function ProductCatalog() {
                 key={p.id}
                 whileHover={{ 
                   scale: 1.02,
-                  rotateZ: [0, -1, 1, -1, 0],
+                  rotateZ: [0, -0.5, 0.5, -0.5, 0],
                   y: -10 
                 }}
                 transition={{ 
                   rotateZ: { duration: 0.4, ease: "easeInOut" },
                   type: "spring", stiffness: 300, damping: 15
                 }}
-                className={`relative border-4 border-slate-900 rounded-[2.5rem] overflow-hidden flex flex-col transition-all bg-white ${isSelected ? 'ring-8 ring-amber-400/20' : ''}`}
+                className={`relative border-4 border-slate-900 dark:border-slate-800 rounded-[2.5rem] overflow-hidden flex flex-col transition-all bg-white dark:bg-slate-900 ${
+                  isSelected ? 'ring-8 ring-amber-400/20' : ''
+                }`}
               >
                 <div className="relative aspect-square overflow-hidden group">
                   <img 
                     src={p.image} 
                     alt={p.name} 
-                    className={`w-full h-full object-cover transition-transform duration-700 ${isSelected ? 'scale-110 brightness-75' : 'group-hover:scale-110 grayscale group-hover:grayscale-0'}`}
+                    className={`w-full h-full object-cover transition-transform duration-700 ${
+                      isSelected ? 'scale-110 brightness-75' : 'group-hover:scale-110 grayscale group-hover:grayscale-0'
+                    }`}
                     referrerPolicy="no-referrer"
                   />
                   <div className="absolute top-6 left-6">
-                    <span className="bg-slate-900 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/20">
+                    <span className="bg-slate-900/90 dark:bg-slate-950/90 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/20">
                       {p.type}
                     </span>
                   </div>
@@ -117,25 +135,33 @@ export default function ProductCatalog() {
 
                 <div className="p-8 flex-1 flex flex-col">
                   <div className="mb-6">
-                    <h4 className="text-2xl font-black uppercase tracking-tighter italic leading-none mb-2">{p.name}</h4>
+                    <h4 className="text-2xl font-black uppercase tracking-tighter italic leading-none mb-2 text-slate-900 dark:text-white">
+                      {p.name}
+                    </h4>
                     <div className="flex items-center gap-2 text-amber-500">
                       <Battery size={14} strokeWidth={3} />
                       <span className="text-[10px] font-black uppercase tracking-widest">{p.specs}</span>
                     </div>
                   </div>
                   
-                  <p className="text-slate-500 font-medium text-sm leading-relaxed mb-10">
+                  <p className="text-slate-500 dark:text-slate-400 font-medium text-sm leading-relaxed mb-10">
                     {p.desc}
                   </p>
 
-                  <div className="mt-auto pt-8 border-t border-slate-100 flex items-center justify-between">
+                  <div className="mt-auto pt-8 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                     <div>
-                      <div className="text-[10px] font-black uppercase tracking-widest text-slate-300 mb-1">Pricing</div>
-                      <div className="text-xl font-black text-slate-900 italic tracking-tighter">{p.price}</div>
+                      <div className="text-[10px] font-black uppercase tracking-widest text-slate-300 dark:text-slate-600 mb-1">Pricing</div>
+                      <div className="text-xl font-black text-slate-900 dark:text-amber-400 italic tracking-tighter">
+                        {p.price}
+                      </div>
                     </div>
                     <button 
                       onClick={() => toggleSelection(p.id)}
-                      className={`w-12 h-12 rounded-xl flex items-center justify-center border-2 border-slate-900 transition-all ${isSelected ? 'bg-amber-400 text-slate-900 shadow-none' : 'bg-white hover:bg-slate-900 hover:text-white'}`}
+                      className={`w-12 h-12 rounded-xl flex items-center justify-center border-2 border-slate-900 dark:border-slate-700 transition-all cursor-pointer ${
+                        isSelected 
+                          ? 'bg-amber-400 text-slate-900 border-amber-400' 
+                          : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-slate-900 hover:text-white dark:hover:bg-amber-400 dark:hover:text-slate-900'
+                      }`}
                     >
                       {isSelected ? <CheckCircle size={20} strokeWidth={3} /> : <Zap size={20} />}
                     </button>

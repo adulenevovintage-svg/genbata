@@ -1,7 +1,11 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { Target, Users, Zap, ShieldCheck, Leaf } from 'lucide-react';
+import { useApp } from '../context/AppContext';
 
 export default function WhyUs() {
+  const { t } = useApp();
+
   const advantages = [
     {
       title: "Advanced Technology",
@@ -26,7 +30,7 @@ export default function WhyUs() {
   ];
 
   return (
-    <section className="py-32 bg-white">
+    <section className="py-32 bg-white dark:bg-slate-950 text-slate-950 dark:text-white border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-20 items-start">
           <motion.div
@@ -34,14 +38,16 @@ export default function WhyUs() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-xs font-black text-amber-500 uppercase tracking-[0.4em] mb-6">The Genbata Edge</h2>
-            <h3 className="text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] mb-12">
-              Why<br /><span className="text-slate-300">Choose</span><br />GENBATA?
+            <h2 className="text-xs font-black text-amber-500 uppercase tracking-[0.4em] mb-6">
+              {t('why_sub')}
+            </h2>
+            <h3 className="text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] mb-12 text-slate-900 dark:text-white">
+              {t('why_title_1')}<br /><span className="text-slate-300 dark:text-slate-705 text-amber-400">{t('why_title_2')}</span>
             </h3>
-            <p className="text-xl text-slate-600 font-medium leading-relaxed max-w-md italic mb-12">
-              We don't just sell components; we engineer autonomy. Our core values of technical supremacy and environmental stewardship drive every installation.
+            <p className="text-xl text-slate-600 dark:text-slate-300 font-medium leading-relaxed max-w-md italic mb-12">
+              {t('why_desc')}
             </p>
-            <div className="relative group overflow-hidden rounded-[2rem] border-4 border-slate-900 shadow-[15px_15px_0px_#fbbf24]">
+            <div className="relative group overflow-hidden rounded-[2rem] border-4 border-slate-900 dark:border-slate-800 shadow-[15px_15px_0px_#fbbf24] dark:shadow-[15px_15px_0px_#0f172a]">
                <img 
                  src="https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?q=80&w=2670&auto=format&fit=crop" 
                  alt="Engineers at work" 
@@ -64,17 +70,17 @@ export default function WhyUs() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group p-8 border-2 border-slate-100 rounded-[2rem] hover:border-slate-900 hover:bg-slate-900 transition-all cursor-default"
+                className="group p-8 border-2 border-slate-100 dark:border-slate-800 rounded-[2rem] hover:border-slate-900 hover:bg-slate-900 dark:hover:bg-slate-900 dark:hover:border-slate-700 transition-all cursor-default"
               >
                 <div className="flex items-start gap-6">
                   <div className="w-12 h-12 rounded-xl bg-amber-400 flex items-center justify-center text-slate-900 border-2 border-slate-900 group-hover:scale-110 transition-transform">
                     <adv.icon size={24} strokeWidth={2.5} />
                   </div>
                   <div>
-                    <h4 className="text-2xl font-black uppercase tracking-tighter text-slate-900 group-hover:text-white mb-2 italic">
+                    <h4 className="text-2xl font-black uppercase tracking-tighter text-slate-900 dark:text-white mb-2 italic group-hover:text-white">
                       {adv.title}
                     </h4>
-                    <p className="text-slate-500 group-hover:text-slate-400 font-medium leading-relaxed">
+                    <p className="text-slate-500 dark:text-slate-400 group-hover:text-slate-400 font-medium leading-relaxed">
                       {adv.description}
                     </p>
                   </div>

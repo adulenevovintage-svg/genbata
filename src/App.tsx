@@ -56,7 +56,7 @@ function SectionWrapper({ children, showMarquee = true }: { children: React.Reac
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-slate-900 overflow-x-hidden selection:bg-amber-500 selection:text-white">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-150 transition-colors duration-500 overflow-x-hidden selection:bg-amber-400 selection:text-slate-950">
       <Navbar />
       <main className="space-y-0">
         <SectionWrapper><Hero /></SectionWrapper>

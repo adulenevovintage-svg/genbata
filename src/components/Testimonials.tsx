@@ -4,22 +4,28 @@ import { Star, Quote } from 'lucide-react';
 export default function Testimonials() {
   const testimonials = [
     {
-      name: "Marcus Thorne",
-      role: "Operations Manager, Vertex Logistics",
-      text: "GENBATA transformed our warehouse operations. The solar generator system they installed has reduced our energy costs by 65% in just 6 months. Their maintenance team is truly world-class.",
-      avatar: "https://i.pravatar.cc/150?u=marcus"
+      name: "Didiskiya Mulugeta",
+      role: "Co-Founder, Rift Valley Agro",
+      text: "The off-grid battery modules from GENBATA kept our processing mills fully operational during peak harvest. Their modular stack-and-go architecture is highly reliable.",
+      avatar: "https://i.pravatar.cc/150?u=didiskiya"
     },
     {
-      name: "Elena Rodriguez",
-      role: "Homeowner",
-      text: "Energy independence used to be a dream. Now, with our GENBATA residential setup, we don't even notice when the neighborhood grid goes down. Highly recommend their professional installation team.",
-      avatar: "https://i.pravatar.cc/150?u=elena"
+      name: "Nathnael Haile",
+      role: "Infrastructure Lead, Blue Nile Logistics",
+      text: "GENBATA transformed our cold-storage warehouses in Addis Ababa. The industrial solar generator system reduced our secondary grid reliance by 70%.",
+      avatar: "https://i.pravatar.cc/150?u=nathnael"
     },
     {
-      name: "Sam Chen",
-      role: "CEO, EcoResort Hawaii",
-      text: "Installing a massive off-grid system on a remote island was a challenge other companies turned down. GENBATA executed it flawlessly. They are the leaders in sustainable power.",
-      avatar: "https://i.pravatar.cc/150?u=sam"
+      name: "Ahmed Mohammed",
+      role: "Chief Technical Officer, Ethio-Tech Hub",
+      text: "Transitioning our data servers to solar power was a major project. GENBATA executed it flawlessly. We now run completely on clean energy with zero downtime.",
+      avatar: "https://i.pravatar.cc/150?u=ahmed"
+    },
+    {
+      name: "Enjifano Ebsa",
+      role: "Operations Director, Oromia Energy Cooperative",
+      text: "Deploying backup power arrays to rural clinic networks was seamless with GENBATA. Their systems are durable, expandable, and built for heavy-duty use.",
+      avatar: "https://i.pravatar.cc/150?u=enjifano"
     }
   ];
 
@@ -36,7 +42,7 @@ export default function Testimonials() {
           <div className="h-px bg-amber-400 flex-1" />
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {testimonials.map((t, i) => (
             <motion.div
               key={t.name}
