@@ -7,25 +7,25 @@ export default function Testimonials() {
       name: "Didiskiya Mulugeta",
       role: "Co-Founder, Rift Valley Agro",
       text: "The off-grid battery modules from GENBATA kept our processing mills fully operational during peak harvest. Their modular stack-and-go architecture is highly reliable.",
-      avatar: "https://i.pravatar.cc/150?u=didiskiya"
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150"
     },
     {
       name: "Nathnael Haile",
       role: "Infrastructure Lead, Blue Nile Logistics",
       text: "GENBATA transformed our cold-storage warehouses in Addis Ababa. The industrial solar generator system reduced our secondary grid reliance by 70%.",
-      avatar: "https://i.pravatar.cc/150?u=nathnael"
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150"
     },
     {
       name: "Ahmed Mohammed",
       role: "Chief Technical Officer, Ethio-Tech Hub",
       text: "Transitioning our data servers to solar power was a major project. GENBATA executed it flawlessly. We now run completely on clean energy with zero downtime.",
-      avatar: "https://i.pravatar.cc/150?u=ahmed"
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150"
     },
     {
       name: "Enjifano Ebsa",
       role: "Operations Director, Oromia Energy Cooperative",
       text: "Deploying backup power arrays to rural clinic networks was seamless with GENBATA. Their systems are durable, expandable, and built for heavy-duty use.",
-      avatar: "https://i.pravatar.cc/150?u=enjifano"
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150"
     }
   ];
 
