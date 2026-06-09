@@ -1,63 +1,76 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'motion/react';
 import { Battery, Zap, CheckCircle, ArrowRight } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 export default function ProductCatalog() {
-  const { t } = useApp();
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const { t, cart, addToCart, removeFromCart, setIsCartOpen } = useApp();
 
   const products = [
     {
       id: 'gen-110',
       name: "110W Energy Titan",
       price: "50,000 BIRR",
+      priceVal: 50000,
       specs: "2-3 Year Battery Health",
       desc: "High-output unit designed for heavy industrial tools and commercial backups.",
       image: "https://images.unsplash.com/photo-1548543604-a87a9909bfec?q=80&w=2574&auto=format&fit=crop",
-      type: "Generator"
+      type: "Generator" as const
     },
     {
       id: 'gen-80',
       name: "80W Eco-Base",
       price: "40,000 BIRR",
+      priceVal: 40000,
       specs: "4-5 Year Battery Health",
       desc: "Sustained efficiency for residential lighting, tech hubs, and low-draw appliances.",
       image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=2672&auto=format&fit=crop",
-      type: "Generator"
+      type: "Generator" as const
     },
     {
       id: 'maint-1',
       name: "Gen-Pro Maintenance",
       price: "4,000 BIRR",
+      priceVal: 4000,
       specs: "Per Visit",
       desc: "Comprehensive diagnostic check, panel cleaning, and battery health calibration.",
       image: "https://images.unsplash.com/photo-1558444479-c8482933074c?q=80&w=2574&auto=format&fit=crop",
-      type: "Service"
+      type: "Service" as const
     },
     {
       id: 'smart-hub',
       name: "Smart Monitor Hub",
       price: "12,000 BIRR",
+      priceVal: 12000,
       specs: "Cloud Integrated",
       desc: "AI-driven power management dashboard. Track consumption and health from your phone.",
       image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?q=80&w=2701&auto=format&fit=crop",
-      type: "Accessory"
+      type: "Accessory" as const
     }
   ];
 
-  const toggleSelection = (id: string) => {
-    setSelectedIds(prev => 
-      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
-    );
-  };
-
-  const handleProceedQuote = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+  const toggleSelection = (p: typeof products[0]) => {
+    const isSelected = cart.some(item => item.id === p.id);
+    if (isSelected) {
+      removeFromCart(p.id);
+    } else {
+      addToCart({
+        id: p.id,
+        name: p.name,
+        price: p.priceVal,
+        type: p.type === 'Generator' ? 'Generator' : p.type === 'Service' ? 'Service' : 'Accessory',
+        specs: p.specs
+      });
     }
   };
+
+  const handleProceedCheckout = () => {
+    setIsCartOpen(true);
+  };
+
+  const selectedCatalogItemsCount = cart.filter(c => 
+    products.some(p => p.id === c.id)
+  ).length;
 
   return (
     <section id="catalog" className="py-32 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
@@ -71,21 +84,21 @@ export default function ProductCatalog() {
               Select Your <br /><span className="text-slate-300 dark:text-slate-700">Power.</span>
             </h3>
           </div>
-          {selectedIds.length > 0 && (
+          {selectedCatalogItemsCount > 0 && (
             <motion.div 
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               className="bg-amber-400 p-6 border-4 border-slate-900 dark:border-white rounded-3xl flex items-center gap-6 shadow-[10px_10px_0px_#0f172a] dark:shadow-[10px_10px_0px_#fbbf24]"
             >
               <div className="text-slate-900 font-black uppercase tracking-tighter">
-                <div className="text-2xl leading-none">{selectedIds.length} ITEMS</div>
-                <div className="text-xs">READY FOR DEPLOYMENT</div>
+                <div className="text-2xl leading-none">{selectedCatalogItemsCount} SELECTED</div>
+                <div className="text-xs">READY FOR CHECKOUT</div>
               </div>
               <button 
-                onClick={handleProceedQuote}
+                onClick={handleProceedCheckout}
                 className="bg-slate-900 text-white px-8 py-4 rounded-xl text-sm font-black uppercase tracking-widest flex items-center gap-2 hover:bg-white hover:text-slate-900 transition-all cursor-pointer"
               >
-                Proceed <ArrowRight size={16} />
+                Proceed to Pay <ArrowRight size={16} />
               </button>
             </motion.div>
           )}
@@ -93,7 +106,7 @@ export default function ProductCatalog() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((p) => {
-            const isSelected = selectedIds.includes(p.id);
+            const isSelected = cart.some(item => item.id === p.id);
             return (
               <motion.div
                 key={p.id}
@@ -156,7 +169,7 @@ export default function ProductCatalog() {
                       </div>
                     </div>
                     <button 
-                      onClick={() => toggleSelection(p.id)}
+                      onClick={() => toggleSelection(p)}
                       className={`w-12 h-12 rounded-xl flex items-center justify-center border-2 border-slate-900 dark:border-slate-700 transition-all cursor-pointer ${
                         isSelected 
                           ? 'bg-amber-400 text-slate-900 border-amber-400' 

@@ -410,12 +410,27 @@ const translations: Record<Language, TranslationDict> = {
   }
 };
 
+export interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  type: 'Product' | 'Service' | 'Accessory' | 'Generator';
+  specs?: string;
+}
+
 interface AppContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   theme: Theme;
   toggleTheme: () => void;
   t: (key: keyof TranslationDict) => string;
+  cart: CartItem[];
+  addToCart: (item: CartItem) => void;
+  removeFromCart: (id: string) => void;
+  clearCart: () => void;
+  cartTotal: number;
+  isCartOpen: boolean;
+  setIsCartOpen: (open: boolean) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -435,6 +450,28 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
     return 'dark'; // Industrial epic style fits dark mode best, so we default to dark
   });
+
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const addToCart = (item: CartItem) => {
+    setCart((prev) => {
+      // Avoid duplicate services, but allows multiple if separate
+      if (prev.some((i) => i.id === item.id)) return prev;
+      return [...prev, item];
+    });
+    setIsCartOpen(true); // Automatically open the checkout window
+  };
+
+  const removeFromCart = (id: string) => {
+    setCart((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  const cartTotal = cart.reduce((sum, item) => sum + item.price, 0);
 
   useEffect(() => {
     localStorage.setItem('gb-lang', language);
@@ -460,7 +497,22 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AppContext.Provider value={{ language, setLanguage, theme, toggleTheme, t }}>
+    <AppContext.Provider
+      value={{
+        language,
+        setLanguage,
+        theme,
+        toggleTheme,
+        t,
+        cart,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        cartTotal,
+        isCartOpen,
+        setIsCartOpen,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

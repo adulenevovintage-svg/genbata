@@ -16,6 +16,7 @@ import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import MapSection from './components/MapSection';
 import Footer from './components/Footer';
+import CartCheckout from './components/CartCheckout';
 
 import Marquee from './components/Marquee';
 
@@ -58,6 +59,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-150 transition-colors duration-500 overflow-x-hidden selection:bg-amber-400 selection:text-slate-950">
       <Navbar />
+      <CartCheckout />
       <main className="space-y-0">
         <SectionWrapper><Hero /></SectionWrapper>
         <SectionWrapper><Services /></SectionWrapper>

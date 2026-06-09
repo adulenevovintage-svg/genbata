@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Menu, X, Sun, Moon, Globe } from 'lucide-react';
+import { Menu, X, Sun, Moon, Globe, ShoppingCart } from 'lucide-react';
 import { useState } from 'react';
 import Logo from './Logo';
 import { useApp, Language } from '../context/AppContext';
@@ -7,7 +7,7 @@ import { useApp, Language } from '../context/AppContext';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showLangDropdown, setShowLangDropdown] = useState(false);
-  const { language, setLanguage, theme, toggleTheme, t } = useApp();
+  const { language, setLanguage, theme, toggleTheme, t, cart, setIsCartOpen } = useApp();
 
   const navLinks = [
     { name: t('nav_products'), href: '#catalog' },
@@ -89,6 +89,20 @@ export default function Navbar() {
               )}
             </div>
 
+            {/* Shopping Cart Indicator */}
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="p-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:border-amber-400 transition-all cursor-pointer relative"
+              title="Open Shopping Cart"
+            >
+              <ShoppingCart size={15} className="text-slate-700 dark:text-amber-400" />
+              {cart.length > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-black w-4.5 h-4.5 rounded-full flex items-center justify-center animate-pulse">
+                  {cart.length}
+                </span>
+              )}
+            </button>
+
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
@@ -112,6 +126,20 @@ export default function Navbar() {
 
           {/* Mobile Menu Actions & Toggle */}
           <div className="flex md:hidden items-center gap-4">
+            {/* Quick Mobile Cart Toggle */}
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="p-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 cursor-pointer relative"
+              title="Open Cart"
+            >
+              <ShoppingCart size={16} className="text-slate-700 dark:text-amber-400" />
+              {cart.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[8px] font-black w-4 h-4 rounded-full flex items-center justify-center">
+                  {cart.length}
+                </span>
+              )}
+            </button>
+
             {/* Quick Mobile Theme Toggle */}
             <button
               onClick={toggleTheme}
